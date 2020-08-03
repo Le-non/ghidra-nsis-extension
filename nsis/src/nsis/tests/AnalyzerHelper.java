@@ -1,12 +1,15 @@
 package nsis.tests;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import ghidra.app.util.bin.ByteArrayProvider;
 import ghidra.app.util.headless.HeadlessAnalyzer;
 
 /**
@@ -21,12 +24,15 @@ public class AnalyzerHelper {
 	public static String temporaryDirectoryName = "ghidra_test";
 
 	public static void main(String[] args) throws IOException {
+		
+		InputStream test = new FileInputStream(new File(filePath + fileName));
+		ByteArrayProvider deobfuscated = NsisExecutableTest.deobfuscate(test);
+		InputStream testFile = deobfuscated.getInputStream(0);
 		List<File> filesToImport = new ArrayList<File>();
-		filesToImport.add(new File(filePath + fileName));
+		filesToImport.add(new File(testFile));
 		Path temporaryDirectory = Files.createTempDirectory(temporaryDirectoryName);
 		HeadlessAnalyzer analyzer = HeadlessAnalyzer.getInstance();
 		analyzer.processLocal(temporaryDirectory.toString(), "headless_test", filePath,
 				filesToImport);
 	}
-
 }

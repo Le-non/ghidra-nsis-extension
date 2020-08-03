@@ -81,7 +81,6 @@ public class NsisAnalyzer extends AbstractAnalyzer {
 		for(AddressRange range: modifiedAddrSet){
 			  System.out.println(range);
 			}
-		System.out.println("Finished");
 		if (modifiedAddrSet.isEmpty()) {
 			return false;
 		}

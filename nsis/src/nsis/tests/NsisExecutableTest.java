@@ -255,7 +255,7 @@ public class NsisExecutableTest {
 	 * @return the deobfuscated ByteArrayProvider object
 	 * @throws IOException
 	 */
-	private ByteArrayProvider deobfuscate(InputStream inputStream) throws IOException {
+	public static ByteArrayProvider deobfuscate(InputStream inputStream) throws IOException {
 		byte[] obfuscated = inputStream.readAllBytes();
 		byte[] original = new byte[obfuscated.length];
 		int i = 0;
